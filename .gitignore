@@ -39,3 +39,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ==============================
+# Python / ML
+# ==============================
+
+.venv/
+__pycache__/
+*.py[cod]
+
+# Raw PlantVillage dataset
+ml/data/tfds/
+ml/data/plant_village/
+
+# Generated train/validation/test data
+ml/data/split/
+
+# Training checkpoints / large ML artifacts
+ml/artifacts/*.keras
+ml/artifacts/*.h5
+ml/artifacts/checkpoints/

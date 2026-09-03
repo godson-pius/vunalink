@@ -1,69 +1,51 @@
 import Image from "next/image";
+import { OfflineStatus } from "@/components/offline-status";
+import { BottomNav } from "@/components/bottom-nav";
+import Link from "next/link";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowRight01Icon, Camera01Icon, File01Icon } from "@hugeicons/core-free-icons";
+
+const copy = {
+  eyebrow: "Your crop companion",
+  title: "Protect your harvest.",
+  description: "Take a photo of a crop to learn what may be affecting it and what to do next.",
+  scan: "Scan Crop",
+  scanHint: "Use your camera or choose a photo",
+  history: "View History",
+  historyHint: "See your previous crop checks",
+};
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-28 pt-6 sm:px-8 sm:pt-10">
+      <header className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <Image src="/vunalink-icon.png" alt="" width={44} height={44} className="rounded-full" priority />
+          <div><p className="text-lg font-bold tracking-tight text-emerald-900">VunaLink</p><p className="text-xs text-stone-500">Healthy crops, stronger harvests</p></div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <OfflineStatus />
+      </header>
+
+      <section className="flex flex-1 flex-col justify-center py-14 sm:py-20">
+        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">{copy.eyebrow}</p>
+        <h1 className="max-w-sm text-[2.75rem] font-bold leading-[1.05] tracking-tight text-stone-950 sm:text-6xl">{copy.title}</h1>
+        <p className="mt-5 max-w-md text-base leading-7 text-stone-600 sm:text-lg">{copy.description}</p>
+
+        <div className="mt-9 space-y-3">
+          <Link href="/scan" className="flex min-h-20 w-full items-center gap-4 rounded-2xl bg-emerald-800 px-5 text-left text-white shadow-sm transition-colors hover:bg-emerald-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 active:bg-emerald-950">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-700 text-emerald-100"><HugeiconsIcon icon={Camera01Icon} size={25} /></span>
+            <span className="flex flex-col"><span className="text-lg font-semibold">{copy.scan}</span><span className="text-sm text-emerald-100">{copy.scanHint}</span></span>
+            <HugeiconsIcon icon={ArrowRight01Icon} size={22} className="ml-auto text-emerald-200" aria-hidden="true" />
+          </Link>
+          <Link href="/history" className="flex min-h-16 w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white px-5 text-left text-stone-800 shadow-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 active:bg-emerald-100">
+            <span className="text-emerald-800"><HugeiconsIcon icon={File01Icon} size={21} /></span>
+            <span className="flex flex-col"><span className="font-semibold">{copy.history}</span><span className="text-sm text-stone-500">{copy.historyHint}</span></span>
+            <HugeiconsIcon icon={ArrowRight01Icon} size={20} className="ml-auto text-stone-400" aria-hidden="true" />
+          </Link>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <BottomNav />
+    </main>
   );
 }
