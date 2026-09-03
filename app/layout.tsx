@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ServiceWorkerRegistration } from "./service-worker-registration";
 import { InstallPrompt } from "@/components/install-prompt";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,10 +15,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="rw"
       className="h-full antialiased"
     >
-      <body className="min-h-full bg-stone-50 text-stone-950">
-        {children}
-        <ServiceWorkerRegistration />
-        <InstallPrompt />
+      <body className="min-h-full bg-stone-50 text-stone-950 transition-colors">
+        <ThemeProvider>{children}<ServiceWorkerRegistration /><InstallPrompt /></ThemeProvider>
       </body>
     </html>
   );
