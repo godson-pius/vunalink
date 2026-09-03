@@ -21,6 +21,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python ml/download_plantvillage.py --data-dir ml/data/tfds --output-dir ml/data/plant_village
+python ml/inspect_dataset.py --source-dir ml/data/plant_village --output ml/data/dataset_inventory.json
 python ml/prepare_dataset.py --source-dir ml/data/plant_village --output-dir ml/data/split
 python ml/train.py --data-dir ml/data/split --output-dir ml/artifacts
 ```
@@ -38,3 +39,19 @@ python ml/export_onnx.py --saved-model ml/artifacts/model.keras --output ml/arti
 The exported model must be copied to `public/models/` only after its input
 shape, preprocessing, labels, and evaluation have been reviewed. The PWA does
 not consume this training output automatically.
+
+## Evaluation and references
+
+The held-out test split is never used for training. `evaluate.py` records
+accuracy, macro precision/recall/F1, per-class metrics, a confusion matrix,
+and all classes ranked by F1 so weak classes remain visible. After training,
+generate browser parity fixtures from the test set with:
+
+```bash
+python ml/create_references.py --model ml/artifacts/model.keras --test-dir ml/data/split/test --output-dir ml/evaluation/references --width 224 --height 224
+```
+
+The generated references are valid only for the exact trained model and class
+mapping. PlantVillage results do not measure performance on real Rwandan farm
+images; representative Rwanda field data and an independent evaluation are
+required before deployment claims.
