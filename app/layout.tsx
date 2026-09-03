@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ServiceWorkerRegistration } from "./service-worker-registration";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,7 +13,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="rw"
       className="h-full antialiased"
     >
-      <body className="min-h-full bg-stone-50 text-stone-950">{children}</body>
+      <body className="min-h-full bg-stone-50 text-stone-950">
+        {children}
+        <ServiceWorkerRegistration />
+      </body>
     </html>
   );
 }

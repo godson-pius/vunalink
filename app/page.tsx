@@ -1,8 +1,19 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-2xl flex-col px-6 py-10 sm:px-8">
       <header className="flex items-center justify-between">
-        <p className="text-lg font-semibold tracking-tight text-emerald-800">VunaLink</p>
+        <div className="flex items-center gap-2">
+          <Image
+            src="/vunalink-icon.png"
+            alt=""
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+          <p className="text-lg font-semibold tracking-tight text-emerald-800">VunaLink</p>
+        </div>
         <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">
           Offline first
         </span>
