@@ -1,4 +1,4 @@
-const CACHE_NAME = "vunalink-shell-v1";
+const CACHE_NAME = "vunalink-shell-v2";
 const APP_SHELL = ["/", "/vunalink-icon.png"];
 
 self.addEventListener("install", (event) => {

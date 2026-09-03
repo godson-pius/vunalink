@@ -9,6 +9,7 @@ import { MODEL_METADATA } from "@/lib/ml/model";
 import type { InferenceResult } from "@/lib/ml/types";
 import { getDiseaseInfoRw } from "@/lib/localization/disease-info";
 import { LocalizedRecommendationCard } from "@/components/localized-recommendation-card";
+import { saveDiagnosis } from "@/lib/history/storage";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const MAX_IMAGE_EDGE = 1600;
@@ -80,7 +81,7 @@ export function CropImagePicker() {
     if (inputRef.current) inputRef.current.value = "";
   };
 
-  const analyze = async () => { if (!image) return; setError(null); setIsAnalyzing(true); const inferenceResult = await runInference(image.file, MODEL_METADATA); setResult(inferenceResult); if (inferenceResult.status === "error") setError(inferenceResult.message); if (inferenceResult.status === "unsupported-class") setError(`The model returned an unsupported crop class (${inferenceResult.classId}).`); setIsAnalyzing(false); };
+  const analyze = async () => { if (!image) return; setError(null); setIsAnalyzing(true); const inferenceResult = await runInference(image.file, MODEL_METADATA); setResult(inferenceResult); if (inferenceResult.status === "error") setError(inferenceResult.message); if (inferenceResult.status === "unsupported-class") setError(`The model returned an unsupported crop class (${inferenceResult.classId}).`); if (inferenceResult.status === "prediction") { try { await saveDiagnosis({ id: crypto.randomUUID(), createdAt: new Date().toISOString(), crop: inferenceResult.prediction.crop, disease: inferenceResult.prediction.disease, diseaseId: inferenceResult.prediction.diseaseId, confidence: inferenceResult.prediction.confidence, modelVersion: inferenceResult.prediction.modelVersion }); } catch { /* History is optional if device storage is unavailable. */ } } setIsAnalyzing(false); };
 
   return <section className="mt-8" aria-label="Crop image selection">
     <input ref={inputRef} className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" onChange={(event) => void selectFile(event.target.files?.[0])} />

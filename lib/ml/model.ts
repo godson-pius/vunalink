@@ -1,6 +1,12 @@
 import * as ort from "onnxruntime-web";
 import type { ModelStatus } from "./types";
-ort.env.wasm.wasmPaths = "/onnxruntime/";
+// Keep the runtime assets local so model loading works offline and does not
+// depend on a CDN. The explicit filenames also avoid runtime variant lookup
+// differences between browsers.
+ort.env.wasm.wasmPaths = {
+  wasm: "/onnxruntime/ort-wasm-simd-threaded.wasm",
+  mjs: "/onnxruntime/ort-wasm-simd-threaded.mjs",
+};
 ort.env.wasm.numThreads = 1;
 ort.env.wasm.proxy = false;
 export const MODEL_PATH = "/models/vunalink-mobilenet-v2.onnx";
