@@ -5,3 +5,4 @@ numpy>=1.24,<3
 Pillow>=10,<12
 # Only needed for export_onnx.py:
 tf2onnx>=1.16,<2
+onnxruntime>=1.17,<2

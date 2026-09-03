@@ -27,11 +27,12 @@ python ml/train.py --data-dir ml/data/split --output-dir ml/artifacts
 
 The exact class list is in `class_config.json`. Edit it before preparing data.
 The scripts write `class_mapping.json`, `model_metadata.json`,
-`evaluation.json`, and a SavedModel/checkpoint. ONNX export is optional and
+`evaluation.json` (including accuracy, macro precision/recall/F1, per-class
+metrics, confusion matrix, and classes ranked by F1), and a SavedModel/checkpoint. ONNX export is optional and
 requires `tf2onnx`:
 
 ```bash
-python ml/export_onnx.py --saved-model ml/artifacts/saved_model --output ml/artifacts/vunalink-mobilenet-v2.onnx
+python ml/export_onnx.py --saved-model ml/artifacts/model.keras --output ml/artifacts/vunalink-mobilenet-v2.onnx
 ```
 
 The exported model must be copied to `public/models/` only after its input
