@@ -29,5 +29,6 @@ for split, selected in split_groups.items():
         if record["group"] in selected:
             destination = output / split / record["label"] / record["path"].name
             destination.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(record["path"], destination)
-(output / "class_mapping.json").write_text(json.dumps({"classes": [{"class_id": i, "dataset_label": label, "disease_id": label.lower().replace("___", "_").replace("(", "").replace(")", "").replace(" ", "_")} for i, label in enumerate(classes)]}, indent=2) + "\n")
+selected_labels = sorted({record["label"] for record in records})
+(output / "class_mapping.json").write_text(json.dumps({"classes": [{"class_id": i, "dataset_label": label, "disease_id": label.lower().replace("___", "_").replace("(", "").replace(")", "").replace(" ", "_")} for i, label in enumerate(selected_labels)]}, indent=2) + "\n")
 print(json.dumps({split: sum(record["group"] in selected for record in records) for split, selected in split_groups.items()}, indent=2))
