@@ -1,5 +1,16 @@
-const CACHE_NAME = "vunalink-shell-v2";
-const APP_SHELL = ["/", "/vunalink-icon.png"];
+const CACHE_NAME = "vunalink-shell-v3";
+const APP_SHELL = [
+  "/",
+  "/scan",
+  "/history",
+  "/settings",
+  "/profile",
+  "/manifest.webmanifest",
+  "/vunalink-icon.png",
+  "/models/vunalink-mobilenet-v2.onnx",
+  "/onnxruntime/ort-wasm-simd-threaded.mjs",
+  "/onnxruntime/ort-wasm-simd-threaded.wasm",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -25,16 +36,14 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  if (new URL(event.request.url).origin !== self.location.origin) return;
 
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        if (new URL(event.request.url).origin === self.location.origin) {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request.mode === "navigate" ? "/" : event.request, copy));
-        }
+        if (response.ok) caches.open(CACHE_NAME).then((cache) => cache.put(event.request, response.clone()));
         return response;
       })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match("/"))),
+      .catch(() => caches.match(event.request).then((cached) => cached || (event.request.mode === "navigate" ? caches.match("/") : Response.error()))),
   );
 });
