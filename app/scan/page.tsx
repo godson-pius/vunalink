@@ -1,0 +1,3 @@
+import { BottomNav } from "@/components/bottom-nav";
+
+export default function ScanPage() { return <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-28 pt-8 sm:px-8"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">Scan</p><h1 className="mt-3 text-3xl font-bold tracking-tight text-stone-950">Check a crop</h1><p className="mt-4 leading-7 text-stone-600">Crop scanning will be available here soon.</p><div className="mt-8 flex min-h-56 items-center justify-center rounded-2xl border-2 border-dashed border-stone-300 bg-white text-center text-sm text-stone-500">Camera and photo tools coming soon</div><BottomNav /></main>; }
