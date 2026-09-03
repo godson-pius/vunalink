@@ -9,6 +9,8 @@ export type LocalizedDiseaseInfo = {
   assistance: string;
 };
 
+export type SupportedLanguage = "en" | "rw";
+
 const blight = (diseaseId: string, name: string, crop: string): LocalizedDiseaseInfo => ({
   diseaseId,
   name,
@@ -39,6 +41,18 @@ export const DISEASE_INFO_RW: Readonly<Record<string, LocalizedDiseaseInfo>> = {
   potato_healthy: healthy("potato_healthy", "ibirayi"),
   tomato_healthy: healthy("tomato_healthy", "inyanya"),
 };
+
+const englishNames: Readonly<Record<string, string>> = {
+  potato_early_blight: "Potato early blight", potato_late_blight: "Potato late blight", potato_healthy: "Potato appears healthy",
+  tomato_early_blight: "Tomato early blight", tomato_late_blight: "Tomato late blight", tomato_healthy: "Tomato appears healthy",
+};
+
+export function getDiseaseInfo(id: string, language: SupportedLanguage = "rw"): LocalizedDiseaseInfo {
+  if (language === "rw") return getDiseaseInfoRw(id);
+  const info = getDiseaseInfoRw(id);
+  if (id.endsWith("_healthy")) return { ...info, name: englishNames[id] ?? "Crop appears healthy", explanation: "No supported disease was detected by the model.", symptoms: [], actions: ["Continue checking the crop regularly.", "Ask an agricultural extension worker if new or worsening symptoms appear."], prevention: ["Keep foliage dry where practical.", "Give plants enough space for air movement.", "Remove crop remains after harvest."], warning: "A healthy prediction does not guarantee that a plant is disease-free.", assistance: "Ask an agricultural extension worker about any new or worsening symptoms." };
+  return { ...info, name: englishNames[id] ?? "Crop assessment", explanation: "This is an AI-assisted prediction, not a confirmed diagnosis.", symptoms: info.symptoms.length ? ["Dark or discolored leaf spots", "Leaves may yellow, dry, or fall", "Symptoms may worsen in wet weather"] : [], actions: ["Inspect nearby plants, especially older leaves.", "Remove severely affected plant parts and keep them away from healthy crops.", "Ask an agricultural extension worker to confirm the diagnosis."], prevention: ["Keep leaves dry where practical and water the soil.", "Give plants enough space for air movement.", "Remove crop remains after harvest."], warning: "Similar symptoms can have different causes. Do not use a chemical product unless it is approved locally and its label is followed.", assistance: "Seek an agricultural extension worker if symptoms spread quickly or affect many plants." };
+}
 
 export function getDiseaseInfoRw(diseaseId: string): LocalizedDiseaseInfo {
   return DISEASE_INFO_RW[diseaseId] ?? {
