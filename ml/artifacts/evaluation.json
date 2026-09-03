@@ -1,0 +1,118 @@
+{
+  "dataset": "PlantVillage",
+  "metrics": {
+    "accuracy": 0.961,
+    "precision_macro": 0.9559297323017426,
+    "recall_macro": 0.9631431155885196,
+    "f1_macro": 0.9592487542139656
+  },
+  "per_class": [
+    {
+      "class_id": 0,
+      "label": "Potato___Early_blight",
+      "precision": 0.9867549668874173,
+      "recall": 0.9933333333333333,
+      "f1": 0.9900332225913622,
+      "support": 150
+    },
+    {
+      "class_id": 1,
+      "label": "Potato___Late_blight",
+      "precision": 0.922077922077922,
+      "recall": 0.9861111111111112,
+      "f1": 0.9530201342281879,
+      "support": 144
+    },
+    {
+      "class_id": 2,
+      "label": "Potato___healthy",
+      "precision": 0.9629629629629629,
+      "recall": 0.9629629629629629,
+      "f1": 0.9629629629629629,
+      "support": 27
+    },
+    {
+      "class_id": 3,
+      "label": "Tomato___Early_blight",
+      "precision": 0.8926174496644296,
+      "recall": 0.910958904109589,
+      "f1": 0.9016949152542373,
+      "support": 146
+    },
+    {
+      "class_id": 4,
+      "label": "Tomato___Late_blight",
+      "precision": 0.9754385964912281,
+      "recall": 0.9297658862876255,
+      "f1": 0.952054794520548,
+      "support": 299
+    },
+    {
+      "class_id": 5,
+      "label": "Tomato___healthy",
+      "precision": 0.9957264957264957,
+      "recall": 0.9957264957264957,
+      "f1": 0.9957264957264957,
+      "support": 234
+    }
+  ],
+  "confusion_matrix": [
+    [
+      149,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      142,
+      1,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      1,
+      26,
+      0,
+      0,
+      0
+    ],
+    [
+      2,
+      5,
+      0,
+      133,
+      6,
+      0
+    ],
+    [
+      0,
+      5,
+      0,
+      15,
+      278,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      233
+    ]
+  ],
+  "poorest_by_f1": [
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Potato___Late_blight",
+    "Potato___healthy",
+    "Potato___Early_blight",
+    "Tomato___healthy"
+  ],
+  "note": "PlantVillage test metrics are not representative of real-world Rwanda field accuracy."
+}
