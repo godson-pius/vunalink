@@ -1,0 +1,7 @@
+tensorflow>=2.15,<3
+tensorflow-datasets>=4.9,<5
+scikit-learn>=1.3,<2
+numpy>=1.24,<3
+Pillow>=10,<12
+# Only needed for export_onnx.py:
+tf2onnx>=1.16,<2
