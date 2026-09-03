@@ -1,0 +1,27 @@
+{
+  "format": "onnx",
+  "onnx_version": "opset-13",
+  "input": {
+    "shape": [
+      null,
+      224,
+      224,
+      3
+    ],
+    "dtype": "float32"
+  },
+  "output": {
+    "shape": [
+      null,
+      6
+    ],
+    "dtype": "float32"
+  },
+  "preprocessing": "MobileNetV2 preprocess_input: (pixel / 127.5) - 1",
+  "source_model": "ml/artifacts/model.keras",
+  "verification": {
+    "method": "fixed random tensor compared with Keras model",
+    "max_absolute_difference": 1.1920928955078125e-07,
+    "passed": true
+  }
+}

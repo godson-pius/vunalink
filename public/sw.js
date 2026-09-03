@@ -29,9 +29,9 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        if (event.request.mode === "navigate") {
+        if (event.request.mode === "navigate" || event.request.url.endsWith(".onnx") || event.request.url.endsWith("model_metadata.json") || event.request.url.endsWith("class_mapping.json")) {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put("/", copy));
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request.mode === "navigate" ? "/" : event.request, copy));
         }
         return response;
       })
