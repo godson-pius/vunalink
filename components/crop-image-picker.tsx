@@ -7,8 +7,8 @@ import { Alert02Icon, Camera01Icon, Cancel01Icon, Image01Icon, Upload01Icon } fr
 import { runInference } from "@/lib/ml/inference";
 import { MODEL_METADATA } from "@/lib/ml/model";
 import type { InferenceResult } from "@/lib/ml/types";
-import { getRecommendation } from "@/lib/recommendations/knowledge-base";
-import { RecommendationCard } from "@/components/recommendation-card";
+import { getDiseaseInfoRw } from "@/lib/localization/disease-info";
+import { LocalizedRecommendationCard } from "@/components/localized-recommendation-card";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const MAX_IMAGE_EDGE = 1600;
@@ -89,6 +89,6 @@ export function CropImagePicker() {
     {error && <p role="alert" className="mt-3 flex items-start gap-2 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800"><HugeiconsIcon icon={Alert02Icon} size={18} className="mt-0.5 shrink-0" />{error}</p>}
     <p className="mt-4 text-center text-xs text-stone-500">JPG, PNG, or WebP · Maximum 10 MB</p>
     <button type="button" onClick={() => void analyze()} disabled={!image || isPreparing || isAnalyzing} className="mt-6 flex min-h-14 w-full items-center justify-center rounded-2xl bg-emerald-800 px-5 font-semibold text-white disabled:cursor-not-allowed disabled:bg-stone-200 disabled:text-stone-500">{isAnalyzing ? "Analyzing on this device…" : "Analyze Crop"}</button>
-    {result?.status === "prediction" && <><div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4"><p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">AI prediction</p><div className="mt-3 grid grid-cols-2 gap-3 text-sm"><div><p className="text-emerald-700">Crop</p><p className="font-semibold text-stone-900">{result.prediction.crop}</p></div><div><p className="text-emerald-700">Disease</p><p className="font-semibold text-stone-900">{result.prediction.disease}</p></div><div><p className="text-emerald-700">Confidence</p><p className="font-semibold text-stone-900">{(result.prediction.confidence * 100).toFixed(1)}%</p></div><div><p className="text-emerald-700">Model</p><p className="font-semibold text-stone-900">v{result.prediction.modelVersion}</p></div></div></div>{getRecommendation(result.prediction.diseaseId) && <RecommendationCard recommendation={getRecommendation(result.prediction.diseaseId)!} />}</>}
+    {result?.status === "prediction" && <><div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4"><p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">Icyo AI yasanze</p><div className="mt-3 grid grid-cols-2 gap-3 text-sm"><div><p className="text-emerald-700">Igihingwa</p><p className="font-semibold text-stone-900">{result.prediction.crop === "Potato" ? "Ibirayi" : "Inyanya"}</p></div><div><p className="text-emerald-700">Indwara</p><p className="font-semibold text-stone-900">{getDiseaseInfoRw(result.prediction.diseaseId).name}</p></div><div><p className="text-emerald-700">Icyizere cya model</p><p className="font-semibold text-stone-900">{(result.prediction.confidence * 100).toFixed(1)}%</p></div><div><p className="text-emerald-700">Model</p><p className="font-semibold text-stone-900">v{result.prediction.modelVersion}</p></div></div></div><LocalizedRecommendationCard info={getDiseaseInfoRw(result.prediction.diseaseId)} /></>}
   </section>;
 }
