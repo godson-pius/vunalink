@@ -18,7 +18,25 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local ML architecture
+
+VunaLink is prepared for local browser inference using:
+
+```text
+MobileNetV2 → ONNX → ONNX Runtime Web → WebAssembly/CPU → local inference
+```
+
+The ONNX Runtime Web dependency is installed, and the model loader expects the trained model at:
+
+```text
+public/models/vunalink-mobilenet-v2.onnx
+```
+
+That real trained model is not included yet. Until it is supplied, model labels, input dimensions, normalization values, accuracy, and confidence thresholds remain intentionally undefined. The Scan screen therefore does not produce predictions.
+
+Preprocessing, model loading, inference, postprocessing, and labels are separated under `lib/ml/`. Recommendations have a separate interface under `lib/recommendations/`, and local LLM integration is intentionally deferred. Any future LLM must remain an optional explanation layer after classification, not the disease detector.
+
+For complete offline inference, the PWA will also need the tested ONNX model and ONNX Runtime Web/WASM assets cached locally. This has not been claimed or validated until the real model is integrated and tested with networking disabled.
 
 ## Learn More
 

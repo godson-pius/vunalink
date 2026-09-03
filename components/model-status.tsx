@@ -1,0 +1,2 @@
+import { getModelStatus, MODEL_PATH } from "@/lib/ml/model";
+export function ModelStatusNotice() { return <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950"><p className="font-semibold">Local analysis is not ready yet</p><p className="mt-1 leading-6">The trained crop model will be added before image analysis is enabled.</p><code className="mt-2 block break-all text-xs text-amber-800">{MODEL_PATH}</code><p className="mt-2 text-xs text-amber-800">Status: {getModelStatus()}</p></div>; }
