@@ -16,7 +16,8 @@
     "resize": "image_dataset_from_directory target size",
     "scaling": "mobilenet_v2.preprocess_input",
     "formula": "(pixel / 127.5) - 1",
-    "channel_order": "RGB"
+    "channel_order": "RGB",
+    "applied_in_model": true
   },
   "output": {
     "shape": [
