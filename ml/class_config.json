@@ -1,16 +1,97 @@
 {
   "dataset": "plant_village",
-  "candidate_classes": [
-    "Corn_(maize)___Common_rust_",
-    "Corn_(maize)___Northern_Leaf_Blight",
-    "Corn_(maize)___healthy",
-    "Potato___Early_blight",
-    "Potato___Late_blight",
-    "Potato___healthy",
+  "crop": "tomato",
+  "target_classes": [
     "Tomato___Early_blight",
     "Tomato___Late_blight",
     "Tomato___healthy"
   ],
-  "split": { "validation": 0.15, "test": 0.15, "seed": 42 },
-  "model": { "input_width": 224, "input_height": 224, "batch_size": 32, "epochs": 20, "fine_tune_epochs": 5, "learning_rate": 0.001 }
+  "other_class": {
+    "label": "Tomato___other",
+    "meaning": "Anything that isn't one of the three supported tomato classes: other tomato diseases, potato, other crops, and photos without leaves. The app routes it to an extension agent.",
+    "budget_multiplier": 2.0,
+    "groups": [
+      {
+        "name": "tomato_diseases",
+        "share": 0.5,
+        "sources": [
+          "Tomato___Bacterial_spot",
+          "Tomato___Leaf_Mold",
+          "Tomato___Septoria_leaf_spot",
+          "Tomato___Spider_mites Two-spotted_spider_mite",
+          "Tomato___Target_Spot",
+          "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+          "Tomato___Tomato_mosaic_virus"
+        ]
+      },
+      {
+        "name": "potato",
+        "share": 0.25,
+        "sources": [
+          "Potato___Early_blight",
+          "Potato___Late_blight",
+          "Potato___healthy"
+        ]
+      },
+      {
+        "name": "other_crops",
+        "share": 0.25,
+        "sources": "auto",
+        "include": [
+          "Background_without_leaves"
+        ]
+      }
+    ],
+    "note": "Budget = budget_multiplier x the median size of the target classes, split between groups by share and sampled evenly across each group's sources. 'auto' = every PlantVillage folder (name with ___) that isn't tomato or already in another group, plus 'include'. Unused budget from a small group moves to the others."
+  },
+  "field_eval": {
+    "dataset": "PlantDoc",
+    "class_map": {
+      "Tomato Early blight leaf": "Tomato___Early_blight",
+      "Tomato leaf late blight": "Tomato___Late_blight",
+      "Tomato leaf": "Tomato___healthy",
+      "Tomato Septoria leaf spot": "Tomato___other",
+      "Tomato leaf bacterial spot": "Tomato___other",
+      "Tomato leaf mosaic virus": "Tomato___other",
+      "Tomato leaf yellow virus": "Tomato___other",
+      "Tomato mold leaf": "Tomato___other",
+      "Tomato two spotted spider mites leaf": "Tomato___other",
+      "Potato leaf early blight": "Tomato___other",
+      "Potato leaf late blight": "Tomato___other",
+      "Squash Powdery mildew leaf": "Tomato___other",
+      "Bell_pepper leaf": "Tomato___other",
+      "Bell_pepper leaf spot": "Tomato___other"
+    },
+    "split": {
+      "train": 0.6,
+      "validation": 0.15,
+      "test": 0.25
+    },
+    "train_repeat": 3,
+    "note": "All PlantDoc tomato images are pooled and split here. With --field-dir, field train/validation images are mixed into training (each train image repeated train_repeat times so field photos are not swamped by lab photos); field test is never trained on."
+  },
+  "split": {
+    "validation": 0.15,
+    "test": 0.15,
+    "seed": 42
+  },
+  "model": {
+    "input_width": 224,
+    "input_height": 224,
+    "batch_size": 32,
+    "epochs": 30,
+    "learning_rate": 0.001,
+    "fine_tune_epochs": 30,
+    "fine_tune_layers": 60,
+    "fine_tune_learning_rate": 5e-05,
+    "early_stopping_patience": 5
+  },
+  "calibration": {
+    "target_answered_accuracy": 0.95,
+    "min_threshold": 0.7,
+    "note": "The threshold is the stricter of: the lowest reaching target_answered_accuracy on lab validation photos, and (with at least min_field_images field validation photos) the lowest reaching field_target_answered_accuracy on them, capped at max_threshold. Field validation is small, so check the field test sweep too.",
+    "field_target_answered_accuracy": 0.8,
+    "min_field_images": 50,
+    "max_threshold": 0.95
+  }
 }

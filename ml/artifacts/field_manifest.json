@@ -1,0 +1,78 @@
+{
+  "dataset": "PlantDoc",
+  "licence": "CC BY 4.0 (Singh et al., 2020)",
+  "unreadable_skipped": 0,
+  "splits": {
+    "train": {
+      "by_label": {
+        "Tomato___Early_blight": 53,
+        "Tomato___Late_blight": 66,
+        "Tomato___healthy": 38,
+        "Tomato___other": 576
+      },
+      "by_source": {
+        "Bell_pepper leaf": 37,
+        "Bell_pepper leaf spot": 43,
+        "Potato leaf early blight": 70,
+        "Potato leaf late blight": 60,
+        "Squash Powdery mildew leaf": 78,
+        "Tomato Early blight leaf": 53,
+        "Tomato Septoria leaf spot": 90,
+        "Tomato leaf": 38,
+        "Tomato leaf bacterial spot": 65,
+        "Tomato leaf late blight": 66,
+        "Tomato leaf mosaic virus": 32,
+        "Tomato leaf yellow virus": 45,
+        "Tomato mold leaf": 55,
+        "Tomato two spotted spider mites leaf": 1
+      }
+    },
+    "validation": {
+      "by_label": {
+        "Tomato___Early_blight": 13,
+        "Tomato___Late_blight": 17,
+        "Tomato___healthy": 9,
+        "Tomato___other": 144
+      },
+      "by_source": {
+        "Bell_pepper leaf": 9,
+        "Bell_pepper leaf spot": 11,
+        "Potato leaf early blight": 18,
+        "Potato leaf late blight": 15,
+        "Squash Powdery mildew leaf": 19,
+        "Tomato Early blight leaf": 13,
+        "Tomato Septoria leaf spot": 22,
+        "Tomato leaf": 9,
+        "Tomato leaf bacterial spot": 16,
+        "Tomato leaf late blight": 17,
+        "Tomato leaf mosaic virus": 8,
+        "Tomato leaf yellow virus": 11,
+        "Tomato mold leaf": 14,
+        "Tomato two spotted spider mites leaf": 1
+      }
+    },
+    "test": {
+      "by_label": {
+        "Tomato___Early_blight": 22,
+        "Tomato___Late_blight": 28,
+        "Tomato___healthy": 16,
+        "Tomato___other": 240
+      },
+      "by_source": {
+        "Bell_pepper leaf": 15,
+        "Bell_pepper leaf spot": 17,
+        "Potato leaf early blight": 29,
+        "Potato leaf late blight": 25,
+        "Squash Powdery mildew leaf": 33,
+        "Tomato Early blight leaf": 22,
+        "Tomato Septoria leaf spot": 38,
+        "Tomato leaf": 16,
+        "Tomato leaf bacterial spot": 28,
+        "Tomato leaf late blight": 28,
+        "Tomato leaf mosaic virus": 14,
+        "Tomato leaf yellow virus": 19,
+        "Tomato mold leaf": 22
+      }
+    }
+  }
+}
